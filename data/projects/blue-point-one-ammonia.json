@@ -1,0 +1,62 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": null,
+  "capacity": {
+    "value": 1.4,
+    "unit": "Mt/yr",
+    "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26"
+  },
+  "id": "blue-point-one-ammonia",
+  "name": "Blue Point One Low-Carbon Ammonia Plant",
+  "owner_company": "Blue Point One JV: CF Industries (operator), JERA, Mitsui & Co.",
+  "type": "ammonia_hydrogen",
+  "parish": "Ascension",
+  "lat": 30.05,
+  "lon": -90.93,
+  "location_note": "Modeste, RiverPlex MegaPark, West Bank. Marker hand-placed; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 4000000000,
+      "basis": "capex",
+      "source_id": "src-led-bluepoint-fid-2025-04-08",
+      "as_of": "2025-04-08",
+      "note": "Approximate, at FID."
+    },
+    {
+      "value_usd": 3700000000,
+      "basis": "capex",
+      "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+      "as_of": "2026-08-26"
+    }
+  ],
+  "headline_capex_usd": 3700000000,
+  "tier": "A",
+  "status": "under_construction",
+  "status_source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2026-08",
+      "end": "2029",
+      "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+      "estimated": true,
+      "note": "Start = groundbreaking; end inferred from 2029 production start."
+    },
+    {
+      "name": "operations",
+      "start": "2029",
+      "end": null,
+      "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+      "estimated": false
+    }
+  ],
+  "confidence": "HIGH",
+  "notes": "Source gives 3,900 construction jobs over four years; that is a total, not a peak, so peak_workforce is left empty.",
+  "source_ids": [
+    "src-bw-bluepoint-groundbreaking-2026-08-26",
+    "src-led-bluepoint-fid-2025-04-08"
+  ]
+}

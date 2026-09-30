@@ -1,0 +1,61 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": null,
+  "capacity": {
+    "value": 2.7,
+    "unit": "Mt/yr",
+    "source_id": "src-hmg-hyundai-steel-2026-09-05"
+  },
+  "id": "hyundai-steel-louisiana-eaf",
+  "name": "Hyundai Steel Louisiana EAF Steel Mill",
+  "owner_company": "Hyundai Steel (Hyundai Motor Group)",
+  "type": "steel_metals",
+  "parish": "Ascension",
+  "lat": 30.07,
+  "lon": -90.96,
+  "location_note": "RiverPlex MegaPark, Donaldsonville area. Marker hand-placed; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 5800000000,
+      "basis": "capex",
+      "source_id": "src-hmg-hyundai-steel-2026-09-05",
+      "as_of": "2026-09-05"
+    },
+    {
+      "value_usd": 5800000000,
+      "basis": "capex",
+      "source_id": "src-recyclingtoday-hyundai-steel",
+      "as_of": "2025"
+    }
+  ],
+  "headline_capex_usd": 5800000000,
+  "tier": "A",
+  "status": "under_construction",
+  "status_source_id": "src-hmg-hyundai-steel-2026-09-05",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2026-09",
+      "end": "2029",
+      "source_id": "src-hmg-hyundai-steel-2026-09-05",
+      "estimated": true,
+      "note": "Start = ceremonial launch event; end inferred from 2029 production target."
+    },
+    {
+      "name": "operations",
+      "start": "2029",
+      "end": null,
+      "source_id": "src-hmg-hyundai-steel-2026-09-05",
+      "estimated": false
+    }
+  ],
+  "confidence": "HIGH",
+  "notes": "Older news (Recycling Today) suggested operations might slip to 2030.",
+  "source_ids": [
+    "src-hmg-hyundai-steel-2026-09-05",
+    "src-recyclingtoday-hyundai-steel"
+  ]
+}

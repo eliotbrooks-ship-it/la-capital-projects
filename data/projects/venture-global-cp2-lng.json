@@ -1,0 +1,64 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": null,
+  "capacity": {
+    "value": 29,
+    "unit": "MTPA",
+    "source_id": "src-vg-cp2-phase2-fid-2026-03-13"
+  },
+  "id": "venture-global-cp2-lng",
+  "name": "CP2 LNG (Phases 1 and 2)",
+  "owner_company": "Venture Global",
+  "type": "lng",
+  "parish": "Cameron",
+  "lat": 29.78,
+  "lon": -93.33,
+  "location_note": "About 1,150 acres next to Calcasieu Pass LNG. Marker hand-placed; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 20700000000,
+      "basis": "financing",
+      "source_id": "src-vg-cp2-phase2-fid-2026-03-13",
+      "as_of": "2026-03-13",
+      "note": "Total project financing, both phases. No stated capex found."
+    },
+    {
+      "value_usd": 8600000000,
+      "basis": "financing",
+      "source_id": "src-vg-cp2-phase2-fid-2026-03-13",
+      "as_of": "2026-03-13",
+      "note": "Phase 2 project financing."
+    }
+  ],
+  "headline_capex_usd": 20700000000,
+  "tier": "A",
+  "status": "under_construction",
+  "status_source_id": "src-vg-q2-2026-results-2026-08-11",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2026-03",
+      "end": "2027-H2",
+      "source_id": "src-vg-cp2-phase2-fid-2026-03-13",
+      "estimated": true,
+      "note": "Construction was already underway by March 2026; the actual start is earlier and not yet sourced. End inferred from first LNG."
+    },
+    {
+      "name": "operations",
+      "start": "2027-H2",
+      "end": null,
+      "source_id": "src-vg-q2-2026-results-2026-08-11",
+      "estimated": false,
+      "note": "First LNG."
+    }
+  ],
+  "confidence": "MEDIUM",
+  "notes": "Headline figure is financing, not stated capex.",
+  "source_ids": [
+    "src-vg-cp2-phase2-fid-2026-03-13",
+    "src-vg-q2-2026-results-2026-08-11"
+  ]
+}

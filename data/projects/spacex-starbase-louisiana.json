@@ -1,0 +1,58 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": null,
+  "capacity": null,
+  "id": "spacex-starbase-louisiana",
+  "name": "Starbase Louisiana",
+  "owner_company": "SpaceX",
+  "type": "spaceport_aerospace",
+  "parish": "Vermilion",
+  "lat": 29.65,
+  "lon": -92.43,
+  "location_note": "Near Pecan Island, about 50 miles SSW of Lafayette. Marker hand-placed near Pecan Island; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 100000000000,
+      "basis": "capex",
+      "source_id": "src-illuminator-spacex-2026-08-25",
+      "as_of": "2026-08-25"
+    },
+    {
+      "value_usd": 100000000000,
+      "basis": "capex",
+      "source_id": "src-led-next-frontier-2026-09-10",
+      "as_of": "2026-09-10"
+    }
+  ],
+  "headline_capex_usd": 100000000000,
+  "tier": "A",
+  "status": "announced",
+  "status_source_id": "src-illuminator-spacex-2026-08-25",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2027",
+      "end": "2029",
+      "source_id": "src-illuminator-spacex-2026-08-25",
+      "estimated": true,
+      "note": "End inferred from first launches expected in 2029."
+    },
+    {
+      "name": "operations",
+      "start": "2029",
+      "end": null,
+      "source_id": "src-illuminator-spacex-2026-08-25",
+      "estimated": false,
+      "note": "First launches."
+    }
+  ],
+  "confidence": "MEDIUM",
+  "notes": "Status and dates come from news only; no SpaceX release or permit found yet.",
+  "source_ids": [
+    "src-illuminator-spacex-2026-08-25",
+    "src-led-next-frontier-2026-09-10"
+  ]
+}

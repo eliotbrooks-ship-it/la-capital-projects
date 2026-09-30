@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source.schema.json",
+  "title": "Source",
+  "description": "One document that supports one or more project facts. quote holds the exact extracts used.",
+  "type": "object",
+  "required": ["id", "url", "publisher", "doc_type", "published", "retrieved_at", "retrieved_by", "quotes", "terms_status"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^src-[a-z0-9]+(-[a-z0-9]+)*$"},
+    "url": {"type": "string", "format": "uri"},
+    "publisher": {"type": "string"},
+    "doc_type": {"enum": ["press_release", "air_permit", "water_permit", "docket_filing", "itep_notice", "parish_agenda", "news", "other"]},
+    "primary": {"type": "boolean", "description": "true for government or company documents; false for news."},
+    "published": {"type": ["string", "null"]},
+    "retrieved_at": {"type": "string", "format": "date"},
+    "retrieved_by": {"enum": ["manual-seed", "collector"]},
+    "snapshot_path": {"type": ["string", "null"], "description": "Path under data/snapshots/. Null for manual seeds until the collector re-fetches them."},
+    "quotes": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "quote_verified": {"type": "boolean", "description": "true only once a human or the Checker has matched each quote against the live page or snapshot."},
+    "terms_status": {"enum": ["approved", "ask", "blocked", "n/a"], "description": "n/a for third-party news/company pages read by hand, not collected."}
+  }
+}

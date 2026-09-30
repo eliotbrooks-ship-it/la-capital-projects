@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "project.schema.json",
+  "title": "Project",
+  "description": "One Louisiana capital project of $10M+. Every factual field must trace to a source_id. Enforced by scripts/validate.py.",
+  "type": "object",
+  "required": ["id", "name", "owner_company", "type", "parish", "capex_values", "headline_capex_usd", "tier", "status", "status_source_id", "phases", "confidence", "first_seen", "last_verified", "source_ids"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "name": {"type": "string"},
+    "owner_company": {"type": "string"},
+    "type": {"enum": ["data_center", "lng", "chemicals", "ammonia_hydrogen", "steel_metals", "manufacturing", "spaceport_aerospace", "power_generation", "infrastructure", "other"]},
+    "parish": {"type": "string", "description": "Parish name without the word 'Parish', e.g. 'Ascension'."},
+    "lat": {"type": ["number", "null"]},
+    "lon": {"type": ["number", "null"]},
+    "location_precision": {"enum": ["exact", "approximate", "parish"], "description": "approximate = hand-placed near a named community; parish = parish centroid only."},
+    "location_note": {"type": "string"},
+    "capex_values": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["value_usd", "basis", "source_id", "as_of"],
+        "additionalProperties": false,
+        "properties": {
+          "value_usd": {"type": "number", "minimum": 0},
+          "basis": {"enum": ["capex", "financing", "commitment"], "description": "capex = stated investment/capital cost; financing = financing raised; commitment = spending commitments."},
+          "source_id": {"type": "string"},
+          "as_of": {"type": "string", "description": "YYYY-MM-DD, YYYY-MM or YYYY"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "headline_capex_usd": {"type": "number", "minimum": 10000000},
+    "tier": {"enum": ["A", "B", "C"], "description": "A >= $1B; B $100M-$1B; C $10M-$100M. Derived from headline_capex_usd."},
+    "status": {"enum": ["announced", "permitting", "approved", "under_construction", "operational", "paused", "cancelled"]},
+    "status_source_id": {"type": "string"},
+    "capacity": {
+      "type": ["object", "null"],
+      "required": ["value", "unit", "source_id"],
+      "properties": {"value": {"type": "number"}, "unit": {"type": "string"}, "source_id": {"type": "string"}, "note": {"type": "string"}}
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "start"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"enum": ["construction", "operations"]},
+          "start": {"type": ["string", "null"], "description": "YYYY, YYYY-MM, YYYY-MM-DD, or YYYY-H1/H2"},
+          "end": {"type": ["string", "null"]},
+          "source_id": {"type": "string"},
+          "estimated": {"type": "boolean", "description": "true if any date is inferred rather than stated by the source."},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "peak_workforce": {
+      "type": ["object", "null"],
+      "required": ["value", "source_id"],
+      "properties": {"value": {"type": "integer"}, "source_id": {"type": "string"}, "note": {"type": "string"}}
+    },
+    "estimate_id": {"type": ["string", "null"]},
+    "confidence": {"enum": ["HIGH", "MEDIUM", "LOW"]},
+    "first_seen": {"type": "string", "format": "date"},
+    "last_verified": {"type": "string", "format": "date"},
+    "source_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "notes": {"type": "string"}
+  }
+}

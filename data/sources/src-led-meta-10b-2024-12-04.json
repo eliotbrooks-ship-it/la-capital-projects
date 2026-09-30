@@ -1,0 +1,17 @@
+{
+  "id": "src-led-meta-10b-2024-12-04",
+  "url": "https://www.opportunitylouisiana.gov/news/meta-selects-northeast-louisiana-as-site-of-10-billion-artificial-intelligence-optimized-data-center-governor-jeff-landry-calls-investment-a-new-chapter-for-state",
+  "publisher": "Louisiana Economic Development",
+  "doc_type": "press_release",
+  "primary": true,
+  "published": "2024-12-04",
+  "retrieved_at": "2026-09-30",
+  "retrieved_by": "manual-seed",
+  "snapshot_path": null,
+  "quotes": [
+    "Meta announced it will build a $10 billion artificial intelligence data center in northeast Louisiana",
+    "Meta expects construction to continue through 2030 with site work beginning in December"
+  ],
+  "quote_verified": false,
+  "terms_status": "approved"
+}

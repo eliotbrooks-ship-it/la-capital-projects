@@ -1,0 +1,18 @@
+{
+  "id": "src-illuminator-spacex-2026-08-25",
+  "url": "https://lailluminator.com/2026/08/25/spacex-louisiana-2/",
+  "publisher": "Louisiana Illuminator",
+  "doc_type": "news",
+  "primary": false,
+  "published": "2026-08-25",
+  "retrieved_at": "2026-09-30",
+  "retrieved_by": "manual-seed",
+  "snapshot_path": null,
+  "quotes": [
+    "SpaceX confirmed Tuesday that it's building a $100 billion self-sustaining spaceport in Vermilion Parish",
+    "Construction on Starbase Louisiana is expected to begin in 2027",
+    "with the first rocket launches to take place in 2029"
+  ],
+  "quote_verified": false,
+  "terms_status": "n/a"
+}

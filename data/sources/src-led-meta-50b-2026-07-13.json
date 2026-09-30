@@ -1,0 +1,19 @@
+{
+  "id": "src-led-meta-50b-2026-07-13",
+  "url": "https://www.opportunitylouisiana.gov/news/meta-commits-more-than-50-billion-for-north-louisiana-project-becoming-one-of-the-largest-data-centers-in-history",
+  "publisher": "Louisiana Economic Development",
+  "doc_type": "press_release",
+  "primary": true,
+  "published": "2026-07-13",
+  "retrieved_at": "2026-09-30",
+  "retrieved_by": "manual-seed",
+  "snapshot_path": null,
+  "quotes": [
+    "Meta announced it is committing more than $50 billion to its Richland Parish Data Center project",
+    "Since construction began, Meta has prioritized working with Louisiana companies, already contracting more than $1.6 billion with local businesses",
+    "The project is expected to support 7,500 construction jobs at peak construction",
+    "expanding the campus to nearly 10 million square feet and 5 gigawatts of IT capacity"
+  ],
+  "quote_verified": false,
+  "terms_status": "approved"
+}

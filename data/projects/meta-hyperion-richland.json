@@ -1,0 +1,67 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": {
+    "value": 7500,
+    "source_id": "src-led-meta-50b-2026-07-13"
+  },
+  "capacity": {
+    "value": 5000,
+    "unit": "MW IT",
+    "source_id": "src-led-meta-50b-2026-07-13"
+  },
+  "id": "meta-hyperion-richland",
+  "name": "Hyperion (Meta Richland Parish Data Center)",
+  "owner_company": "Meta Platforms (financing JV with funds managed by Blue Owl Capital)",
+  "type": "data_center",
+  "parish": "Richland",
+  "lat": 32.48,
+  "lon": -91.65,
+  "location_note": "Former Franklin Farm megasite between Rayville and Delhi. Marker hand-placed near Holly Ridge; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 10000000000,
+      "basis": "capex",
+      "source_id": "src-led-meta-10b-2024-12-04",
+      "as_of": "2024-12-04",
+      "note": "Initial announced scope."
+    },
+    {
+      "value_usd": 27000000000,
+      "basis": "financing",
+      "source_id": "src-fortune-meta-2026-03-26",
+      "as_of": "2026-03-26",
+      "note": "Blue Owl JV target for total development costs."
+    },
+    {
+      "value_usd": 50000000000,
+      "basis": "commitment",
+      "source_id": "src-led-meta-50b-2026-07-13",
+      "as_of": "2026-07-13",
+      "note": "More than $50B committed after expansion to 5 GW."
+    }
+  ],
+  "headline_capex_usd": 50000000000,
+  "tier": "A",
+  "status": "under_construction",
+  "status_source_id": "src-led-meta-50b-2026-07-13",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2024-12",
+      "end": "2030",
+      "source_id": "src-led-meta-10b-2024-12-04",
+      "estimated": false,
+      "note": "End date is from the original $10B plan; the 2026 expansion may extend it."
+    }
+  ],
+  "confidence": "HIGH",
+  "notes": "The three capex figures are successive scopes, not rival estimates.",
+  "source_ids": [
+    "src-fortune-meta-2026-03-26",
+    "src-led-meta-10b-2024-12-04",
+    "src-led-meta-50b-2026-07-13"
+  ]
+}

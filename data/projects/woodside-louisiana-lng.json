@@ -1,0 +1,63 @@
+{
+  "estimate_id": null,
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-09-30",
+  "location_precision": "approximate",
+  "peak_workforce": null,
+  "capacity": {
+    "value": 16.5,
+    "unit": "MTPA",
+    "source_id": "src-led-woodside-fid-2025-04-28",
+    "note": "Phase 1 only."
+  },
+  "id": "woodside-louisiana-lng",
+  "name": "Louisiana LNG (Phase 1, Trains 1-3)",
+  "owner_company": "Woodside Energy",
+  "type": "lng",
+  "parish": "Calcasieu",
+  "lat": 30.07,
+  "lon": -93.33,
+  "location_note": "Calcasieu River, former Driftwood LNG site. Marker hand-placed; not from a source.",
+  "capex_values": [
+    {
+      "value_usd": 17500000000,
+      "basis": "capex",
+      "source_id": "src-led-woodside-fid-2025-04-28",
+      "as_of": "2025-04-28"
+    },
+    {
+      "value_usd": 17500000000,
+      "basis": "capex",
+      "source_id": "src-woodside-latest-look-2026-08-06",
+      "as_of": "2026-08-06"
+    }
+  ],
+  "headline_capex_usd": 17500000000,
+  "tier": "A",
+  "status": "under_construction",
+  "status_source_id": "src-woodside-latest-look-2026-08-06",
+  "phases": [
+    {
+      "name": "construction",
+      "start": "2025-04",
+      "end": "2029",
+      "source_id": "src-led-woodside-fid-2025-04-28",
+      "estimated": true,
+      "note": "End inferred from first LNG target."
+    },
+    {
+      "name": "operations",
+      "start": "2029",
+      "end": null,
+      "source_id": "src-woodside-latest-look-2026-08-06",
+      "estimated": false,
+      "note": "First LNG cargo."
+    }
+  ],
+  "confidence": "HIGH",
+  "notes": "28% complete as of August 2026.",
+  "source_ids": [
+    "src-led-woodside-fid-2025-04-28",
+    "src-woodside-latest-look-2026-08-06"
+  ]
+}
