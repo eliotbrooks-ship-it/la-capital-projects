@@ -160,7 +160,7 @@ def page(title, body, *, description="", active=""):
 {body}
 </main>
 <footer class="site-footer">
-  <p>Data licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/">ODbL 1.0</a>. Independent personal project; not affiliated with any employer, agency or project owner. Estimates are indicative, not engineering quantities.</p>
+  <p>Data licensed <a href="https://opendatacommons.org/licenses/odbl/1-0/">ODbL 1.0</a>. A Cocoon Carbon project. Not affiliated with any government agency or project owner. Estimates are indicative, not engineering quantities.</p>
   <p>For deeper data-center coverage see <a href="https://louisianaaihub.com/">Louisiana AI Hub</a> and <a href="https://louisianai.com/">LouisianAI</a>. Downloads: <a href="{BASE}data/projects.csv">CSV</a> · <a href="{BASE}data/projects.json">JSON</a> · <a href="{BASE}data/projects.geojson">GeoJSON</a></p>
 </footer>
 </body>

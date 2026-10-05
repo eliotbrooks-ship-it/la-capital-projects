@@ -1,18 +1,18 @@
 # Permission requests (drafts, for Eliot to send)
 
-Nothing in this file is sent automatically. Replace the bracketed placeholders, send each request from your personal email, and record the reply in `docs/sources.md`.
+Nothing in this file is sent automatically. Replace the bracketed placeholders, send each request from your Cocoon Carbon email, and record the reply in `docs/sources.md`.
 
 ## Shared message body
 
 > Hello,
 >
-> I run a small, independent, non-commercial website that tracks publicly announced capital projects in Louisiana (projects over $10M). It lists each project's value, status and timeline, and links every figure back to its public source. The site's data is published free under an open license.
+> At Cocoon Carbon we run a small, free website that tracks publicly announced capital projects in Louisiana (projects over $10M). It lists each project's value, status and timeline, and links every figure back to its public source. The site's data is published free under an open license.
 >
-> I'd like to check whether it's acceptable to use an automated script to read your public [agendas / docket listings] about once a day. It would make at most one request every [15–30] seconds and identify itself with a descriptive user-agent and contact email. If there is a feed, export or preferred method you'd rather I use, I'm happy to follow it. If you'd prefer I don't automate this, I'll only look up records by hand.
+> I'd like to check whether it's acceptable to use an automated script to read your public [agendas / docket listings] occasionally (at most about once a week). It would make at most one request every [15–30] seconds and identify itself with a descriptive user-agent and contact email. If there is a feed, export or preferred method you'd rather I use, I'm happy to follow it. If you'd prefer I don't automate this, I'll only look up records by hand.
 >
 > Thank you,
 > Eliot Brooks
-> [personal email] · [site URL]
+> Cocoon Carbon · [work email] · [site URL]
 
 ## Where to send it
 

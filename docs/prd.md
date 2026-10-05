@@ -2,7 +2,7 @@
 
 **Status:** Draft, 2026-09-30
 **Owner:** Eliot Brooks
-**Surface:** New public GitHub repo (personal account). Site served by GitHub Pages; data pipeline runs as scheduled GitHub Actions calling the Claude API.
+**Surface:** Public GitHub repo (currently on Eliot's `eliotbrooks-ship-it` account; see Constraints). Site served by GitHub Pages; data pipeline runs as scheduled GitHub Actions calling the Claude API.
 
 ## Problem
 
@@ -23,16 +23,16 @@ We want to:
 
 ## Constraints
 
-- **Freedom:** Free hand. This is a personally owned project and the real v1, not a throwaway prototype.
+- **Freedom:** Free hand within Cocoon Carbon. As of 2026-10-04 this is a Cocoon Carbon work project (it started as a personal side project), and this is the real v1, not a throwaway prototype.
 - **Touches:** It publishes a public website and dataset. It sends automated requests to government websites (LED, LPSC, LDEQ, parish sites). It collects email addresses (personal data) through a third-party form. It spends on a personal Anthropic API account.
-- **Build on / must not disturb:** It has no link to any Cocoon Carbon system, account, domain, data or device. Everything runs under personal accounts. It does not reuse Louisiana AI Hub data; see "Reuse check" in the handoff. We link to them, and we don't republish their records.
+- **Build on / must not disturb:** It runs on Cocoon Carbon resources where needed. The Claude API key is Cocoon's, stored as a repo secret. The GitHub repo is still on Eliot's account; moving it into a Cocoon GitHub organisation is an open item. No internal Cocoon data goes into the public dataset. It does not reuse Louisiana AI Hub data; see "Reuse check" in the handoff. We link to them, and we don't republish their records.
 - **Data & safety:**
   - Email sign-ups are stored only in the form service's private storage. They never go into the repo, public or private.
   - No emails are sent in v1. Sending is out of scope.
   - Scraping must respect each source's terms, robots.txt and a polite rate limit. Every source's terms are checked and logged before its collector is turned on (M1).
   - Material estimates must always be labelled as estimates, with a range and a link to the method.
   - Auto-merge is limited to the rules in M4. Anything else waits for Eliot to review.
-- **Clearance:** Eliot reports that the employer's board and legal checks are already cleared (handoff decision 5). The PRD takes this as given. Any conditions they attached should be added here before M1 closes.
+- **Clearance:** Eliot reports board and legal clearance (handoff decision 5). That was given for a side project. Confirm it still covers a Cocoon work project, especially the public open-data site and the later materials broker. The PRD takes this as given. Any conditions they attached should be added here before M1 closes.
 
 ## Decisions captured (from scoping conversation)
 
@@ -49,6 +49,7 @@ We want to:
 | Data-center layer | Built from primary filings ourselves. The site links to Louisiana AI Hub and LouisianAI but does not copy their data. |
 | Additional project fields (decided 2026-10-04) | Recorded only when a source states them: expected job creation (permanent direct, indirect and total; construction at peak and over the whole build), expected completion date (with whether it means build complete, first operations or full operations), main contractors and key suppliers with their role, site acreage, permit and docket numbers, ITEP application number and approval date, and company-level procurement links. Named individuals' contact details are never stored. |
 | Where the new fields show | Projects table: expected completion, permanent jobs and main contractor. Project pages: every field. CSV and JSON downloads: every field. Peak construction workforce now lives in the jobs list (`construction_peak`). |
+| Project ownership (changed 2026-10-04) | A Cocoon Carbon work project, no longer a personal side project. The site footer says "A Cocoon Carbon project", and the Claude API key is Cocoon's. Still open: GitHub repo ownership, the copyright holder in `LICENSE`, and Cocoon branding on the site. |
 | Collector scope and schedule (decided 2026-10-04) | All five approved sources: LED news, LED BC&I/ITEP PDFs, Vermilion, Ascension and Cameron. Runs only when started by hand (changed from weekly on 2026-10-04). Backfill from 2025-01-01. Max 40 documents, 200 web requests and $1.50 per run. |
 | Collector output (decided 2026-10-04) | One rolling pull request on a `collector` branch. A run continues on it while it's open, so nothing is processed twice. |
 | PDF text (approved 2026-10-04) | The workflow installs `poppler-utils` (`pdftotext`) from the Ubuntu archive, so quotes from PDFs can be checked. |
@@ -78,15 +79,15 @@ Dependency graph: M1 → M2 → M3 → M4 → M5. M2 → M6 (can run alongside M
 This milestone sets up every account, secret and permission before any build work. It is a dependency for everything else.
 
 - [ ] **Initialize permissions/access.** Confirm or create everything the build needs in one batch while Eliot is at the keyboard:
-  - a personal GitHub account and a new public repo (e.g. `la-capital-projects`), with admin rights to it;
+  - a GitHub account and a new public repo (e.g. `la-capital-projects`), with admin rights to it;
   - GitHub Pages enabled, with the source set to GitHub Actions;
   - Actions allowed to create and approve pull requests (repo setting: Workflow permissions set to read and write, and "Allow GitHub Actions to create and approve pull requests" turned on);
   - a branch protection rule on `main` that lets the auto-merge bot through only for PRs labelled `auto-ok`;
-  - a personal Anthropic API key stored as the repo secret `ANTHROPIC_API_KEY`, with a monthly spend limit set in the Anthropic Console (illustrative $25 - confirm);
+  - a Cocoon Carbon Anthropic API key (with an expiry) stored as the repo secret `ANTHROPIC_API_KEY`, with a monthly spend limit set in the Anthropic Console (illustrative $25 - confirm);
   - a form service account and form created, with its endpoint URL stored as the repo variable `SIGNUP_FORM_URL`;
   - an analytics account created, with its site ID stored as `ANALYTICS_SITE_ID`;
-  - optionally, a custom domain registered personally, with DNS pointed at Pages.
-- [ ] Confirm that no Cocoon account, email, laptop profile or domain is used anywhere above.
+  - optionally, a custom domain, with DNS pointed at Pages.
+- [ ] Confirm with whoever runs Cocoon's Anthropic and GitHub accounts that a Cocoon API key may sit as a secret in this repo, or move the repo into a Cocoon GitHub organisation.
 - [ ] Record any conditions the board or legal attached to the clearance in the Constraints section.
 - [ ] Create `docs/sources.md` with one row per source: URL, access method (HTML, RSS, search portal, PDF), terms-of-use URL, a robots.txt summary, reuse terms, the rate limit we will apply, and a status of `approved`, `blocked` or `ask`.
 - [ ] Check terms for LED news and project pages.
@@ -194,7 +195,7 @@ This milestone builds the static site that reads the compiled data files. It dep
 - [ ] Parish overlap view: a heatmap of parishes (rows) by quarter (columns), showing the count of projects in the construction phase, plus the sum of `peak_workforce` where it is sourced. Estimated phases are shown hatched.
 - [ ] Methodology page (from M5) and a Sources page listing every source with its terms status.
 - [ ] Sign-up block copy: "Get the weekly Louisiana capital projects brief. Leave your email and we'll let you know when email delivery starts. We only use it for the brief." The block posts to `SIGNUP_FORM_URL`, and nothing is stored on the site.
-- [ ] Footer copy: "Data licensed ODbL 1.0. Independent personal project; not affiliated with any employer, agency or project owner. Estimates are indicative, not engineering quantities." Plus links to Louisiana AI Hub and LouisianAI for deeper data-center coverage.
+- [ ] Footer copy: "Data licensed ODbL 1.0. A Cocoon Carbon project. Not affiliated with any government agency or project owner. Estimates are indicative, not engineering quantities." Plus links to Louisiana AI Hub and LouisianAI for deeper data-center coverage.
 - [ ] Analytics snippet on every page. No cookies banner is needed if the analytics tool is cookieless (verify with the chosen tool in M1).
 
 ### M7 - Weekly brief and launch
@@ -272,7 +273,7 @@ Run before public launch:
 - Wrong estimates hurt credibility with procurement leads. Mitigated by visible ranges, method versioning, review of Tier A and B, and the disclaimer copy (M5, M6).
 - The success metric counts visitors, which doesn't prove broker demand. That is accepted for v1. The directory PRD should use a demand-side metric instead.
 
-**Constraints check:** No milestone uses a Cocoon system. No real-world action (sending emails, posting, contacting sources) runs automatically; M1 source requests and M7 launch posts are drafts for Eliot to send. Email addresses stay in the form service.
+**Constraints check:** The only Cocoon resource used is the Claude API key (a repo secret). No real-world action (sending emails, posting, contacting sources) runs automatically; M1 source requests and M7 launch posts are drafts for Eliot to send. Email addresses stay in the form service.
 
 ## Research grounding
 

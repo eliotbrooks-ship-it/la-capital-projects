@@ -2,7 +2,7 @@
 
 An open, source-cited tracker of Louisiana capital projects worth $10M or more: what's being built, where, when, and what it needs. Material estimates are shown with their assumptions.
 
-This is an independent personal project, not affiliated with any employer, agency or project owner. The plan is in [`docs/prd.md`](docs/prd.md).
+This is a Cocoon Carbon project. It is not affiliated with any government agency or project owner. The plan is in [`docs/prd.md`](docs/prd.md).
 
 ## Status
 
