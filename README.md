@@ -10,7 +10,8 @@ This is an independent personal project, not affiliated with any employer, agenc
 |---|---|
 | M1 Accounts, access, source terms | Source terms checked ([`docs/sources.md`](docs/sources.md)). Account steps are still for Eliot to do (see below). |
 | M2 Data model, license, seed records | Done: schemas, validator, ODbL license, and 6 seed Tier A projects with 13 sources. |
-| M3–M5 Collector, Checker, Estimator agents | Not started |
+| M3 Collector | Built and tested offline (`pipeline/`, `tests/`, `.github/workflows/collect.yml`). Needs an API key before the first live run. See [`docs/collector.md`](docs/collector.md). |
+| M4–M5 Checker, Estimator | Not started |
 | M6 Site | Shell built: table, map, profiles, parish overlap, methodology, sources, briefs, sign-up. |
 | M7–M9 | Not started |
 
