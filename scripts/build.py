@@ -43,7 +43,61 @@ STATUS_LABELS = {
 }
 BASIS_LABELS = {"capex": "Stated investment", "financing": "Financing raised", "commitment": "Spending commitment"}
 
+COMPLETION_BASIS = {"construction_complete": "construction complete", "first_operations": "first operations",
+                    "full_operations": "full commercial operations"}
+JOB_KINDS = {"permanent_direct": "Permanent direct", "permanent_indirect": "Permanent indirect",
+             "permanent_total": "Permanent total", "construction_peak": "Construction (peak on site)",
+             "construction_total": "Construction (total over build)"}
+ROLE_LABELS = {"epc": "EPC contractor", "engineering_procurement": "Engineering and procurement",
+               "general_contractor": "General contractor", "technology_licensor": "Technology licensor",
+               "equipment_supplier": "Equipment supplier", "civil_works": "Civil works", "services": "Services",
+               "other": "Other"}
+MAIN_ROLES = ("epc", "general_contractor", "engineering_procurement")
+
 e = html.escape
+
+
+def jobs_of(p):
+    return {j["kind"]: j for j in p.get("jobs", [])}
+
+
+def permanent_jobs(p):
+    """Best single permanent-jobs figure for the table: total if stated, else direct."""
+    j = jobs_of(p)
+    return j.get("permanent_total") or j.get("permanent_direct")
+
+
+def fmt_date(v):
+    """'2029-H2' -> 'H2 2029'; other formats unchanged."""
+    if v and len(v) == 7 and v[5] == "H":
+        return f"{v[5:]} {v[:4]}"
+    return v
+
+
+SHORT_BASIS = {"construction_complete": "build complete", "first_operations": "ops start", "full_operations": "full ops"}
+
+
+def completion_cell(p):
+    ec = p.get("expected_completion")
+    if not ec:
+        return "—"
+    return f'{e(fmt_date(ec["value"]))}<div class="muted small">{SHORT_BASIS[ec["basis"]]}</div>'
+
+
+def contractor_cell(p):
+    names = main_contractors(p)
+    if not names:
+        return "—"
+    return e(names[0]) + (f' <span class="muted small">+{len(names) - 1} more</span>' if len(names) > 1 else "")
+
+
+def jobs_cell(p):
+    j = permanent_jobs(p)
+    return f'{j["value"]:,}' if j else "—"
+
+
+def main_contractors(p):
+    return [c["name"] for c in p.get("contractors", []) if c["role"] in MAIN_ROLES]
 
 
 def load(name):
@@ -153,13 +207,26 @@ def build():
 
     buf = io.StringIO()
     cols = ["id", "name", "owner_company", "type", "parish", "status", "headline_capex_usd", "tier",
-            "confidence", "lat", "lon", "location_precision", "last_verified", "source_urls"]
+            "expected_completion", "expected_completion_basis"] + [f"jobs_{k}" for k in JOB_KINDS] + [
+            "contractors", "site_acres", "permits", "itep_application_number", "itep_approved_date",
+            "procurement_urls", "confidence", "lat", "lon", "location_precision", "last_verified", "source_urls"]
     w = csv.writer(buf)
     w.writerow(cols)
     for p in projects:
-        row = [p.get(c, "") for c in cols[:-1]]
-        row.append(" ".join(sources[s]["url"] for s in p["source_ids"]))
-        w.writerow(row)
+        ec, jb, itep = p.get("expected_completion") or {}, jobs_of(p), p.get("itep") or {}
+        row = {c: p.get(c, "") for c in cols}
+        row.update({
+            "expected_completion": ec.get("value", ""), "expected_completion_basis": ec.get("basis", ""),
+            "contractors": "; ".join(f'{c["name"]} ({c["role"]})' for c in p.get("contractors", [])),
+            "site_acres": (p.get("site_acres") or {}).get("value", ""),
+            "permits": "; ".join(f'{x["agency"]} {x["number"]}' for x in p.get("permits", [])),
+            "itep_application_number": itep.get("application_number", ""),
+            "itep_approved_date": itep.get("approved_date") or "",
+            "procurement_urls": " ".join(x["url"] for x in p.get("procurement_links", [])),
+            "source_urls": " ".join(sources[s]["url"] for s in p["source_ids"]),
+        })
+        row.update({f"jobs_{k}": jb[k]["value"] if k in jb else "" for k in JOB_KINDS})
+        w.writerow([row[c] for c in cols])
     (DIST / "data" / "projects.csv").write_text(buf.getvalue())
 
     features = [{"type": "Feature",
@@ -201,6 +268,9 @@ def build():
         f'<td><a href="{BASE}projects/{p["id"]}/">{e(p["name"])}</a><div class="muted small">{e(p["owner_company"])}</div></td>'
         f'<td>{TYPE_LABELS[p["type"]]}</td><td>{e(p["parish"])}</td><td>{STATUS_LABELS[p["status"]]}</td>'
         f'<td class="num" data-sort="{p["headline_capex_usd"]}">{usd(p["headline_capex_usd"])}</td>'
+        f'<td data-sort="{month_index((p.get("expected_completion") or {}).get("value"), False) or 999999}">{completion_cell(p)}</td>'
+        f'<td class="num" data-sort="{(permanent_jobs(p) or {}).get("value", -1)}">{jobs_cell(p)}</td>'
+        f'<td>{contractor_cell(p)}</td>'
         f'<td>{p["tier"]}</td><td><span class="conf conf-{p["confidence"].lower()}">{p["confidence"]}</span></td></tr>'
         for p in sorted(projects, key=lambda x: -x["headline_capex_usd"]))
     table = f"""
@@ -216,7 +286,7 @@ def build():
 <p class="muted small"><span id="count">{len(projects)}</span> shown · <a href="#" id="dl-csv">Download CSV of current filter</a> · <a href="{BASE}data/projects.json">Full JSON</a></p>
 <div class="table-wrap">
 <table id="projects" class="data">
-<thead><tr><th data-key="name">Project</th><th>Type</th><th>Parish</th><th>Status</th><th data-key="capex" class="num">Value</th><th>Tier</th><th>Confidence</th></tr></thead>
+<thead><tr><th data-key="name">Project</th><th>Type</th><th>Parish</th><th>Status</th><th data-key="capex" class="num">Value</th><th data-key="completion">Expected completion</th><th data-key="jobs" class="num">Permanent jobs</th><th>Main contractor</th><th>Tier</th><th>Confidence</th></tr></thead>
 <tbody>{rows}</tbody>
 </table>
 </div>
@@ -240,7 +310,7 @@ def build():
             f'<td>{e(c.get("note", ""))}{cite(c["source_id"])}</td></tr>' for c in p["capex_values"])
         phases = ""
         for ph in p["phases"]:
-            span = e(ph["start"] or "?") + ("" if ph["name"] == "operations" else f' → {e(ph.get("end") or "?")}')
+            span = e(fmt_date(ph["start"]) or "?") + ("" if ph["name"] == "operations" else f' → {e(fmt_date(ph.get("end")) or "?")}')
             badge = ' <span class="badge">includes estimated dates</span>' if ph.get("estimated") else ""
             c = cite(ph["source_id"]) if ph.get("source_id") else ""
             phases += f'<li><strong>{ph["name"].capitalize()}</strong>: {span}{c}{badge}<div class="muted small">{e(ph.get("note", ""))}</div></li>'
@@ -251,15 +321,54 @@ def build():
         if p.get("capacity"):
             c = p["capacity"]
             facts.append(("Capacity", f'{c["value"]:,} {e(c["unit"])}{cite(c["source_id"])}'))
-        if p.get("peak_workforce"):
-            w_ = p["peak_workforce"]
-            facts.append(("Peak construction workforce", f'{w_["value"]:,}{cite(w_["source_id"])}'))
+        ec = p.get("expected_completion")
+        facts.append(("Expected completion",
+                      f'{e(fmt_date(ec["value"]))} ({COMPLETION_BASIS[ec["basis"]]}){cite(ec["source_id"])}'
+                      + (f'<div class="muted small">{e(ec["note"])}</div>' if ec.get("note") else "") if ec else '<span class="muted">Not stated</span>'))
+        if p.get("site_acres"):
+            a = p["site_acres"]
+            facts.append(("Site area", f'{a["value"]:,.0f} acres{cite(a["source_id"])}'
+                          + (f'<div class="muted small">{e(a["note"])}</div>' if a.get("note") else "")))
         facts.append(("Location", e(p.get("location_note", "")) +
                       (' <span class="badge">approximate</span>' if p.get("location_precision") != "exact" else "")))
         facts.append(("Confidence", f'<span class="conf conf-{p["confidence"].lower()}">{p["confidence"]}</span>'))
         facts.append(("Last verified", e(p["last_verified"])))
         fact_html = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in facts)
 
+        none = '<p class="muted">None found in public sources yet.</p>'
+        jb = p.get("jobs", [])
+        jobs_html = ('<div class="table-wrap"><table class="data"><tbody>' + "".join(
+            f'<tr><td>{JOB_KINDS[j["kind"]]}</td><td class="num">{j["value"]:,}{cite(j["source_id"])}</td>'
+            f'<td class="muted small">{e(j.get("note", ""))}</td></tr>'
+            for j in sorted(jb, key=lambda j: list(JOB_KINDS).index(j["kind"]))) + '</tbody></table></div>') if jb else none
+        cs = p.get("contractors", [])
+        con_html = ('<div class="table-wrap"><table class="data"><tbody>' + "".join(
+            f'<tr><td><strong>{e(c["name"])}</strong>{cite(c["source_id"])}<div class="muted small">{e(c.get("note", ""))}</div></td>'
+            f'<td>{ROLE_LABELS[c["role"]]}</td></tr>'
+            for c in sorted(cs, key=lambda c: list(ROLE_LABELS).index(c["role"]))) + '</tbody></table></div>') if cs else none
+        pm = p.get("permits", [])
+        permit_html = ('<div class="table-wrap"><table class="data"><thead><tr><th>Agency</th><th>Type</th><th>Number</th><th>Date</th></tr></thead><tbody>' + "".join(
+            f'<tr><td>{e(x["agency"])}</td><td>{e(x["type"])}' + (f' <span class="badge">{e(x["status"])}</span>' if x.get("status") else "")
+            + (f'<div class="muted small">{e(x["note"])}</div>' if x.get("note") else "")
+            + f'</td><td>{e(x["number"])}{cite(x["source_id"])}</td><td>{e(x.get("date") or "")}</td></tr>' for x in pm)
+            + '</tbody></table></div>') if pm else none
+        itep = p.get("itep")
+        itep_html = (f'<p><strong>Industrial Tax Exemption (ITEP):</strong> application {e(itep["application_number"])}'
+                     + (f', approved {e(itep["approved_date"])}' if itep.get("approved_date") else "") + f'{cite(itep["source_id"])}</p>'
+                     if itep else '<p class="muted small">Industrial Tax Exemption (ITEP): no application number found yet.</p>')
+        links = p.get("procurement_links", [])
+        proc_html = ("<ul>" + "".join(
+            f'<li><a href="{e(x["url"])}" rel="noopener">{e(x["label"])}</a>{cite(x["source_id"]) if x.get("source_id") else ""}</li>'
+            for x in links) + "</ul>") if links else none
+        extra_html = f"""
+<div class="grid2">
+  <section class="card"><h2>Expected jobs</h2>{jobs_html}</section>
+  <section class="card"><h2>Contractors and suppliers</h2>{con_html}</section>
+</div>
+<div class="grid2">
+  <section class="card"><h2>Permits and approvals</h2>{permit_html}{itep_html}</section>
+  <section class="card"><h2>Selling to this project</h2>{proc_html}<p class="muted small">Company-level vendor pages only.</p></section>
+</div>"""
         est = estimates.get(p.get("estimate_id") or "")
         if est:
             r = lambda k: f'{est[k]["low"]:,.0f} – {est[k]["likely"]:,.0f} – {est[k]["high"]:,.0f}'
@@ -274,7 +383,7 @@ def build():
         src_list = ""
         for i, sid in enumerate(used, 1):
             s = sources[sid]
-            kind = "primary" if s.get("primary") else "news"
+            kind = "primary" if s.get("primary") else "secondary"
             qv = "" if s.get("quote_verified") else ' <span class="badge warn">quote not yet re-verified</span>'
             quotes = "".join(f"<blockquote>{e(q)}</blockquote>" for q in s["quotes"])
             src_list += (f'<li id="src-{i}"><a href="{e(s["url"])}" rel="noopener">{e(s["publisher"])}</a>'
@@ -292,6 +401,7 @@ def build():
 <p class="muted small">Every sourced figure is listed. The headline is the most recent primary-source figure.</p>
 <div class="table-wrap"><table class="data"><thead><tr><th class="num">Value</th><th>Basis</th><th>As of</th><th>Note</th></tr></thead><tbody>{capex_rows}</tbody></table></div>
 </section>
+{extra_html}
 <section class="card"><h2>Materials</h2>{est_html}</section>
 <section class="card"><h2>Sources</h2><ol class="sources">{src_list}</ol></section>
 """
@@ -350,7 +460,7 @@ def build():
                     tds += '<td class="cell"></td>'
                     continue
                 n = len(act)
-                wf = sum(p["peak_workforce"]["value"] for p, _ in act if p.get("peak_workforce"))
+                wf = sum(jobs_of(p)["construction_peak"]["value"] for p, _ in act if "construction_peak" in jobs_of(p))
                 est_cls = " est" if any(f for _, f in act) else ""
                 names = "; ".join(p["name"] for p, _ in act)
                 label = f"{parish}, {q // 4} Q{q % 4 + 1}: {n} project(s) in construction: {names}" + (f"; sourced peak workforce {wf:,}" if wf else "")
@@ -395,7 +505,7 @@ def build():
     # ---- sources
     src_rows = "".join(
         f'<tr><td><a href="{e(s["url"])}" rel="noopener">{e(s["publisher"])}</a></td><td>{e(s["doc_type"].replace("_", " "))}</td>'
-        f'<td>{e(s.get("published") or "undated")}</td><td>{"primary" if s.get("primary") else "news"}</td></tr>'
+        f'<td>{e(s.get("published") or "undated")}</td><td>{"primary" if s.get("primary") else "secondary"}</td></tr>'
         for s in sorted(sources.values(), key=lambda s: s.get("published") or "", reverse=True))
     sources_body = f"""
 <h1>Sources</h1>

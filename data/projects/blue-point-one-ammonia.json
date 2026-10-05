@@ -1,14 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": null,
-  "capacity": {
-    "value": 1.4,
-    "unit": "Mt/yr",
-    "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26"
-  },
   "id": "blue-point-one-ammonia",
   "name": "Blue Point One Low-Carbon Ammonia Plant",
   "owner_company": "Blue Point One JV: CF Industries (operator), JERA, Mitsui & Co.",
@@ -16,6 +6,7 @@
   "parish": "Ascension",
   "lat": 30.05,
   "lon": -90.93,
+  "location_precision": "approximate",
   "location_note": "Modeste, RiverPlex MegaPark, West Bank. Marker hand-placed; not from a source.",
   "capex_values": [
     {
@@ -36,6 +27,11 @@
   "tier": "A",
   "status": "under_construction",
   "status_source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+  "capacity": {
+    "value": 1.4,
+    "unit": "Mt/yr",
+    "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26"
+  },
   "phases": [
     {
       "name": "construction",
@@ -53,10 +49,68 @@
       "estimated": false
     }
   ],
+  "expected_completion": {
+    "value": "2029",
+    "basis": "first_operations",
+    "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+    "note": "Production start."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_direct",
+      "value": 103,
+      "source_id": "src-led-bluepoint-fid-2025-04-08"
+    },
+    {
+      "kind": "permanent_indirect",
+      "value": 311,
+      "source_id": "src-led-bluepoint-fid-2025-04-08",
+      "note": "LED estimate."
+    },
+    {
+      "kind": "permanent_total",
+      "value": 414,
+      "source_id": "src-led-bluepoint-fid-2025-04-08"
+    },
+    {
+      "kind": "construction_total",
+      "value": 3900,
+      "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+      "note": "Over four years."
+    }
+  ],
+  "contractors": [
+    {
+      "name": "Technip Energies",
+      "role": "engineering_procurement",
+      "source_id": "src-technip-bluepoint-2025-04-08",
+      "note": "Engineering, procurement, equipment and module fabrication; construction contractor not named."
+    },
+    {
+      "name": "Topsoe",
+      "role": "technology_licensor",
+      "source_id": "src-technip-bluepoint-2025-04-08",
+      "note": "SynCOR Ammonia technology."
+    },
+    {
+      "name": "Linde",
+      "role": "other",
+      "source_id": "src-bw-bluepoint-groundbreaking-2026-08-26",
+      "note": "$400M+ on-site air-separation unit (oxygen and nitrogen)."
+    }
+  ],
+  "site_acres": null,
+  "permits": [],
+  "itep": null,
+  "procurement_links": [],
+  "estimate_id": null,
   "confidence": "HIGH",
-  "notes": "Source gives 3,900 construction jobs over four years; that is a total, not a peak, so peak_workforce is left empty.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
     "src-bw-bluepoint-groundbreaking-2026-08-26",
-    "src-led-bluepoint-fid-2025-04-08"
-  ]
+    "src-led-bluepoint-fid-2025-04-08",
+    "src-technip-bluepoint-2025-04-08"
+  ],
+  "notes": "Capex figures differ: about $4B at FID (2025) and $3.7B at groundbreaking (2026)."
 }

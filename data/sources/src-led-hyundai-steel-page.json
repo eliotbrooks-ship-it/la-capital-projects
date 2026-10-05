@@ -1,0 +1,17 @@
+{
+  "id": "src-led-hyundai-steel-page",
+  "url": "https://www.opportunitylouisiana.gov/hyundai-steel",
+  "publisher": "Louisiana Economic Development",
+  "doc_type": "other",
+  "primary": true,
+  "published": null,
+  "retrieved_at": "2026-10-04",
+  "retrieved_by": "manual-seed",
+  "snapshot_path": null,
+  "quotes": [
+    "Air Liquide is investing more than $350 million in Louisiana to support Hyundai Steel's operations",
+    "Sign up to become a vendor or subcontractor for Hyundai Steel or other projects around the state."
+  ],
+  "quote_verified": false,
+  "terms_status": "approved"
+}

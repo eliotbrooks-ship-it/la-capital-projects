@@ -3,7 +3,7 @@
   --accent: #0f6b5c; --accent-ink: #ffffff; --warn: #9a5b00; --warn-bg: #fff4e0;
   --heat1: #d7ece6; --heat2: #8fcabb; --heat3: #3f9c86;
   --high: #0f6b5c; --medium: #9a5b00; --low: #a3322b;
-  --radius: 10px; --max: 1100px;
+  --radius: 10px; --max: 1240px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -79,6 +79,6 @@ form.signup button { font: inherit; font-weight: 600; padding: 8px 16px; border-
   dl.facts { grid-template-columns: 1fr; }
   dl.facts dt { margin-top: 6px; }
 }
-#projects { min-width: 720px; }
+#projects { min-width: 1000px; }
 #projects td:first-child, #projects th:first-child { min-width: 220px; }
 #projects td:first-child { position: sticky; left: 0; background: var(--bg); }

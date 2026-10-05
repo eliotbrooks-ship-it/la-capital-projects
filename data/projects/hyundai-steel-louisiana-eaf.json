@@ -1,14 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": null,
-  "capacity": {
-    "value": 2.7,
-    "unit": "Mt/yr",
-    "source_id": "src-hmg-hyundai-steel-2026-09-05"
-  },
   "id": "hyundai-steel-louisiana-eaf",
   "name": "Hyundai Steel Louisiana EAF Steel Mill",
   "owner_company": "Hyundai Steel (Hyundai Motor Group)",
@@ -16,6 +6,7 @@
   "parish": "Ascension",
   "lat": 30.07,
   "lon": -90.96,
+  "location_precision": "approximate",
   "location_note": "RiverPlex MegaPark, Donaldsonville area. Marker hand-placed; not from a source.",
   "capex_values": [
     {
@@ -35,6 +26,11 @@
   "tier": "A",
   "status": "under_construction",
   "status_source_id": "src-hmg-hyundai-steel-2026-09-05",
+  "capacity": {
+    "value": 2.7,
+    "unit": "Mt/yr",
+    "source_id": "src-hmg-hyundai-steel-2026-09-05"
+  },
   "phases": [
     {
       "name": "construction",
@@ -52,10 +48,93 @@
       "estimated": false
     }
   ],
+  "expected_completion": {
+    "value": "2029",
+    "basis": "first_operations",
+    "source_id": "src-hmg-hyundai-steel-2026-09-05",
+    "note": "Commercial production target."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_direct",
+      "value": 1300,
+      "source_id": "src-hmg-hyundai-steel-2026-09-05"
+    },
+    {
+      "kind": "permanent_indirect",
+      "value": 4100,
+      "source_id": "src-led-hyundai-steel-2025-03-24",
+      "note": "LED estimate."
+    },
+    {
+      "kind": "permanent_total",
+      "value": 5400,
+      "source_id": "src-hmg-hyundai-steel-2026-09-05"
+    }
+  ],
+  "contractors": [
+    {
+      "name": "Danieli",
+      "role": "equipment_supplier",
+      "source_id": "src-modernmetals-hyundai-danieli",
+      "note": "Electric arc furnaces, slab casters and reheating furnaces."
+    },
+    {
+      "name": "Tenova and Danieli (ENERGIRON)",
+      "role": "technology_licensor",
+      "source_id": "src-modernmetals-hyundai-danieli",
+      "note": "Direct reduction plant."
+    },
+    {
+      "name": "Air Liquide",
+      "role": "other",
+      "source_id": "src-led-hyundai-steel-page",
+      "note": "Investing $350M+ in supply to the mill (industrial gases)."
+    }
+  ],
+  "site_acres": {
+    "value": 1700,
+    "source_id": "src-led-hyundai-steel-2025-03-24",
+    "note": "Approximate."
+  },
+  "permits": [
+    {
+      "agency": "LDEQ",
+      "type": "Part 70 (Title V) air operating permit",
+      "number": "0180-00243-V0",
+      "date": "2026-07-31",
+      "status": "draft",
+      "source_id": "src-eip-hyundai-permit-2026-08-26",
+      "note": "LDEQ Agency Interest 248885."
+    },
+    {
+      "agency": "LDEQ",
+      "type": "PSD air permit",
+      "number": "PSD-LA-872",
+      "date": "2026-07-31",
+      "status": "draft",
+      "source_id": "src-eip-hyundai-permit-2026-08-26"
+    }
+  ],
+  "itep": null,
+  "procurement_links": [
+    {
+      "url": "https://www.opportunitylouisiana.gov/source-louisiana",
+      "label": "Source Louisiana (state vendor registry, linked from LED's Hyundai Steel page)",
+      "source_id": "src-led-hyundai-steel-page"
+    }
+  ],
+  "estimate_id": null,
   "confidence": "HIGH",
-  "notes": "Older news (Recycling Today) suggested operations might slip to 2030.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
+    "src-eip-hyundai-permit-2026-08-26",
     "src-hmg-hyundai-steel-2026-09-05",
+    "src-led-hyundai-steel-2025-03-24",
+    "src-led-hyundai-steel-page",
+    "src-modernmetals-hyundai-danieli",
     "src-recyclingtoday-hyundai-steel"
-  ]
+  ],
+  "notes": "Older news (Recycling Today) suggested operations might slip to 2030."
 }

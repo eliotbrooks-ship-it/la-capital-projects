@@ -1,14 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": null,
-  "capacity": {
-    "value": 29,
-    "unit": "MTPA",
-    "source_id": "src-vg-cp2-phase2-fid-2026-03-13"
-  },
   "id": "venture-global-cp2-lng",
   "name": "CP2 LNG (Phases 1 and 2)",
   "owner_company": "Venture Global",
@@ -16,6 +6,7 @@
   "parish": "Cameron",
   "lat": 29.78,
   "lon": -93.33,
+  "location_precision": "approximate",
   "location_note": "About 1,150 acres next to Calcasieu Pass LNG. Marker hand-placed; not from a source.",
   "capex_values": [
     {
@@ -37,6 +28,11 @@
   "tier": "A",
   "status": "under_construction",
   "status_source_id": "src-vg-q2-2026-results-2026-08-11",
+  "capacity": {
+    "value": 29,
+    "unit": "MTPA",
+    "source_id": "src-vg-cp2-phase2-fid-2026-03-13"
+  },
   "phases": [
     {
       "name": "construction",
@@ -55,10 +51,75 @@
       "note": "First LNG."
     }
   ],
+  "expected_completion": {
+    "value": "2029-H2",
+    "basis": "full_operations",
+    "source_id": "src-doe-cp2-progress-2026-04-01",
+    "note": "Commercial operations: Phase 1 late 2029, Phase 2 mid-2030. First LNG is earlier (second half of 2027)."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_direct",
+      "value": 400,
+      "source_id": "src-vg-cp2-site-work-2025-06-03"
+    },
+    {
+      "kind": "permanent_total",
+      "value": 3000,
+      "source_id": "src-vg-cp2-site-work-2025-06-03",
+      "note": "Approximate; jobs supported in Louisiana."
+    },
+    {
+      "kind": "construction_peak",
+      "value": 7500,
+      "source_id": "src-vg-cp2-site-work-2025-06-03",
+      "note": "Approximate."
+    }
+  ],
+  "contractors": [],
+  "site_acres": {
+    "value": 1150,
+    "source_id": "src-vg-cp2-page",
+    "note": "Approximate. An earlier LED release (2021) said 650 acres."
+  },
+  "permits": [
+    {
+      "agency": "FERC",
+      "type": "Natural Gas Act authorization (terminal and CP Express pipeline)",
+      "number": "CP22-21-000 / CP22-22-000",
+      "date": "2024-06-27",
+      "status": "issued",
+      "source_id": "src-doe-cp2-progress-2026-04-01"
+    },
+    {
+      "agency": "DOE",
+      "type": "LNG export authorization, FTA nations",
+      "number": "Order No. 4812, Docket No. 21-131-LNG",
+      "date": "2022-04-22",
+      "status": "issued",
+      "source_id": "src-doe-cp2-progress-2026-04-01"
+    },
+    {
+      "agency": "DOE",
+      "type": "Export order amendment",
+      "number": "Order No. 5264-A, Docket No. 21-131-LNG",
+      "date": "2025-10-21",
+      "status": "amended",
+      "source_id": "src-doe-cp2-progress-2026-04-01"
+    }
+  ],
+  "itep": null,
+  "procurement_links": [],
+  "estimate_id": null,
   "confidence": "MEDIUM",
-  "notes": "Headline figure is financing, not stated capex.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
+    "src-doe-cp2-progress-2026-04-01",
+    "src-vg-cp2-page",
     "src-vg-cp2-phase2-fid-2026-03-13",
+    "src-vg-cp2-site-work-2025-06-03",
     "src-vg-q2-2026-results-2026-08-11"
-  ]
+  ],
+  "notes": "Headline figure is financing, not stated capex."
 }

@@ -131,9 +131,46 @@ def main():
                 ref(f, ph["source_id"], "phases")
             elif not ph.get("estimated"):
                 err(f, "a phase without source_id must be marked estimated")
-        for k in ("capacity", "peak_workforce"):
+        props = project_schema["properties"]
+        for k in ("capacity", "site_acres", "itep", "expected_completion"):
             if p.get(k):
                 ref(f, p[k].get("source_id"), k)
+        ec = p.get("expected_completion")
+        if ec:
+            if ec.get("basis") not in set(props["expected_completion"]["properties"]["basis"]["enum"]):
+                err(f, f"bad expected_completion basis {ec.get('basis')!r}")
+            if not DATE_RE.match(str(ec.get("value", ""))):
+                err(f, f"bad expected_completion value {ec.get('value')!r}")
+        job_kinds = set(props["jobs"]["items"]["properties"]["kind"]["enum"])
+        seen_kinds = set()
+        for j in p.get("jobs", []):
+            if j.get("kind") not in job_kinds:
+                err(f, f"bad jobs kind {j.get('kind')!r}")
+            if j.get("kind") in seen_kinds:
+                err(f, f"jobs kind {j.get('kind')!r} listed twice; keep the most recent primary figure")
+            seen_kinds.add(j.get("kind"))
+            if not isinstance(j.get("value"), int) or j["value"] < 0:
+                err(f, "jobs value must be a non-negative integer")
+            ref(f, j.get("source_id"), "jobs")
+        roles = set(props["contractors"]["items"]["properties"]["role"]["enum"])
+        for c in p.get("contractors", []):
+            if c.get("role") not in roles:
+                err(f, f"bad contractor role {c.get('role')!r}")
+            ref(f, c.get("source_id"), "contractors")
+        agencies = set(props["permits"]["items"]["properties"]["agency"]["enum"])
+        for pm in p.get("permits", []):
+            if pm.get("agency") not in agencies:
+                err(f, f"bad permit agency {pm.get('agency')!r}")
+            if not pm.get("number"):
+                err(f, "permit entries need an identifying number")
+            if pm.get("date") and not DATE_RE.match(pm["date"]):
+                err(f, f"bad permit date {pm['date']!r}")
+            ref(f, pm.get("source_id"), "permits")
+        for link in p.get("procurement_links", []):
+            if not str(link.get("url", "")).startswith("https://"):
+                err(f, "procurement link must be https")
+            if link.get("source_id"):
+                ref(f, link["source_id"], "procurement_links")
         for sid in p.get("source_ids", []):
             ref(f, sid, "source_ids")
         lat, lon = p.get("lat"), p.get("lon")

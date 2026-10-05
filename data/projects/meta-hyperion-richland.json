@@ -1,17 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": {
-    "value": 7500,
-    "source_id": "src-led-meta-50b-2026-07-13"
-  },
-  "capacity": {
-    "value": 5000,
-    "unit": "MW IT",
-    "source_id": "src-led-meta-50b-2026-07-13"
-  },
   "id": "meta-hyperion-richland",
   "name": "Hyperion (Meta Richland Parish Data Center)",
   "owner_company": "Meta Platforms (financing JV with funds managed by Blue Owl Capital)",
@@ -19,6 +6,7 @@
   "parish": "Richland",
   "lat": 32.48,
   "lon": -91.65,
+  "location_precision": "approximate",
   "location_note": "Former Franklin Farm megasite between Rayville and Delhi. Marker hand-placed near Holly Ridge; not from a source.",
   "capex_values": [
     {
@@ -47,6 +35,11 @@
   "tier": "A",
   "status": "under_construction",
   "status_source_id": "src-led-meta-50b-2026-07-13",
+  "capacity": {
+    "value": 5000,
+    "unit": "MW IT",
+    "source_id": "src-led-meta-50b-2026-07-13"
+  },
   "phases": [
     {
       "name": "construction",
@@ -57,11 +50,82 @@
       "note": "End date is from the original $10B plan; the 2026 expansion may extend it."
     }
   ],
+  "expected_completion": {
+    "value": "2030",
+    "basis": "construction_complete",
+    "source_id": "src-led-meta-10b-2024-12-04",
+    "note": "From the original $10B plan; the 2026 expansion may extend it."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_direct",
+      "value": 1000,
+      "source_id": "src-led-meta-50b-2026-07-13",
+      "note": "Approximate."
+    },
+    {
+      "kind": "permanent_indirect",
+      "value": 1900,
+      "source_id": "src-led-meta-50b-2026-07-13",
+      "note": "LED estimate."
+    },
+    {
+      "kind": "permanent_total",
+      "value": 2900,
+      "source_id": "src-led-meta-50b-2026-07-13",
+      "note": "'Over 2,900'."
+    },
+    {
+      "kind": "construction_peak",
+      "value": 7500,
+      "source_id": "src-led-meta-50b-2026-07-13"
+    }
+  ],
+  "contractors": [
+    {
+      "name": "Turner Construction Company",
+      "role": "general_contractor",
+      "source_id": "src-meta-richland-contracts-2025-12-19"
+    },
+    {
+      "name": "DPR Construction",
+      "role": "general_contractor",
+      "source_id": "src-meta-richland-contracts-2025-12-19"
+    },
+    {
+      "name": "M. A. Mortenson Company",
+      "role": "general_contractor",
+      "source_id": "src-meta-richland-contracts-2025-12-19"
+    }
+  ],
+  "site_acres": {
+    "value": 2250,
+    "source_id": "src-led-meta-10b-2024-12-04",
+    "note": "From the 2024 announcement; the 2026 expansion may use more land."
+  },
+  "permits": [],
+  "itep": null,
+  "procurement_links": [
+    {
+      "url": "https://www.opportunitylouisiana.gov/source-louisiana",
+      "label": "Source Louisiana (state vendor registry; LED says Meta designated it as its primary subcontracting portal)"
+    },
+    {
+      "url": "https://www.turnerconstruction.com/pages/richland-parish-data-center-resource-page",
+      "label": "Turner Construction: Richland Parish trade-package registration",
+      "source_id": "src-turner-richland-resource-page"
+    }
+  ],
+  "estimate_id": null,
   "confidence": "HIGH",
-  "notes": "The three capex figures are successive scopes, not rival estimates.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
     "src-fortune-meta-2026-03-26",
     "src-led-meta-10b-2024-12-04",
-    "src-led-meta-50b-2026-07-13"
-  ]
+    "src-led-meta-50b-2026-07-13",
+    "src-meta-richland-contracts-2025-12-19",
+    "src-turner-richland-resource-page"
+  ],
+  "notes": "The three capex figures are successive scopes, not rival estimates."
 }

@@ -1,15 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": null,
-  "capacity": {
-    "value": 16.5,
-    "unit": "MTPA",
-    "source_id": "src-led-woodside-fid-2025-04-28",
-    "note": "Phase 1 only."
-  },
   "id": "woodside-louisiana-lng",
   "name": "Louisiana LNG (Phase 1, Trains 1-3)",
   "owner_company": "Woodside Energy",
@@ -17,6 +6,7 @@
   "parish": "Calcasieu",
   "lat": 30.07,
   "lon": -93.33,
+  "location_precision": "approximate",
   "location_note": "Calcasieu River, former Driftwood LNG site. Marker hand-placed; not from a source.",
   "capex_values": [
     {
@@ -36,6 +26,12 @@
   "tier": "A",
   "status": "under_construction",
   "status_source_id": "src-woodside-latest-look-2026-08-06",
+  "capacity": {
+    "value": 16.5,
+    "unit": "MTPA",
+    "source_id": "src-led-woodside-fid-2025-04-28",
+    "note": "Phase 1 only."
+  },
   "phases": [
     {
       "name": "construction",
@@ -54,10 +50,82 @@
       "note": "First LNG cargo."
     }
   ],
+  "expected_completion": {
+    "value": "2029",
+    "basis": "first_operations",
+    "source_id": "src-woodside-latest-look-2026-08-06",
+    "note": "First LNG cargo."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_direct",
+      "value": 350,
+      "source_id": "src-desmog-woodside-itep-2025-05-02",
+      "note": "News report citing state filings."
+    },
+    {
+      "kind": "construction_total",
+      "value": 4400,
+      "source_id": "src-wrkf-woodside-groundbreaking-2025-09-18",
+      "note": "'More than 4,400 jobs at the site during construction' (news)."
+    }
+  ],
+  "contractors": [
+    {
+      "name": "Bechtel",
+      "role": "epc",
+      "source_id": "src-woodside-louisiana-lng-page"
+    },
+    {
+      "name": "Green Tug Towing",
+      "role": "services",
+      "source_id": "src-woodside-latest-look-2026-08-06",
+      "note": "Louisiana-based; four new tugboats."
+    }
+  ],
+  "site_acres": {
+    "value": 1000,
+    "source_id": "src-illuminator-lng-pollution-2026-04-07",
+    "note": "News figure; other reports give 477 acres. No primary source found."
+  },
+  "permits": [
+    {
+      "agency": "FERC",
+      "type": "Natural Gas Act authorization (terminal and pipeline)",
+      "number": "CP17-117 / CP17-118",
+      "date": "2019-04-18",
+      "status": "issued",
+      "source_id": "src-woodside-louisiana-lng-page",
+      "note": "Extension of time granted 2024-02-15."
+    },
+    {
+      "agency": "DOE",
+      "type": "LNG export authorization (FTA and non-FTA nations)",
+      "number": "FE Docket No. 16-144-LNG",
+      "date": "2019-05-02",
+      "status": "issued",
+      "source_id": "src-woodside-louisiana-lng-page",
+      "note": "FTA order 2017-02-28; non-FTA order 2019-05-02."
+    }
+  ],
+  "itep": null,
+  "procurement_links": [
+    {
+      "url": "https://www.woodside.com/suppliers",
+      "label": "Woodside suppliers page (company-wide, not Louisiana-specific)"
+    }
+  ],
+  "estimate_id": null,
   "confidence": "HIGH",
-  "notes": "28% complete as of August 2026.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
+    "src-desmog-woodside-itep-2025-05-02",
+    "src-illuminator-lng-pollution-2026-04-07",
     "src-led-woodside-fid-2025-04-28",
-    "src-woodside-latest-look-2026-08-06"
-  ]
+    "src-woodside-latest-look-2026-08-06",
+    "src-woodside-louisiana-lng-page",
+    "src-wrkf-woodside-groundbreaking-2025-09-18"
+  ],
+  "notes": "28% complete as of August 2026."
 }

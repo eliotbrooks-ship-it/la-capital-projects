@@ -47,6 +47,8 @@ We want to:
 | Materials estimates in v1 | Yes: concrete, steel and phase timing, shown with ranges and a visible method and labelled as estimates. |
 | Sources | All available public primary sources: LED announcements, LDEQ EDMS permits, LPSC dockets, ITEP and Board of Commerce & Industry (BC&I) notices, and parish agendas. Each one is gated by a terms-of-use check. |
 | Data-center layer | Built from primary filings ourselves. The site links to Louisiana AI Hub and LouisianAI but does not copy their data. |
+| Additional project fields (decided 2026-10-04) | Recorded only when a source states them: expected job creation (permanent direct, indirect and total; construction at peak and over the whole build), expected completion date (with whether it means build complete, first operations or full operations), main contractors and key suppliers with their role, site acreage, permit and docket numbers, ITEP application number and approval date, and company-level procurement links. Named individuals' contact details are never stored. |
+| Where the new fields show | Projects table: expected completion, permanent jobs and main contractor. Project pages: every field. CSV and JSON downloads: every field. Peak construction workforce now lives in the jobs list (`construction_peak`). |
 | Conflicting figures (e.g. Meta Hyperion $10B/$27B/$50B+) | Show every sourced value with its citation. Headline figure is the most recent primary-source value (implied - confirm). |
 | Build approach | A real site built with Claude Code. |
 | Hosting | Public GitHub repo, with GitHub Pages for the site and GitHub Actions for scheduled pipeline runs. |
@@ -96,7 +98,7 @@ This milestone sets up every account, secret and permission before any build wor
 
 This milestone defines the schema that every agent writes to, and seeds it by hand with known projects. It depends on M1.
 
-- [ ] `data/schema/project.schema.json` with these fields:
+- [x] `data/schema/project.schema.json` with these fields (plus the 2026-10-04 additions in the Decisions table):
   - `id` (a slug)
   - `name`
   - `owner_company`
@@ -131,7 +133,7 @@ This milestone pulls each approved source and extracts candidate project records
 
 - [ ] Put one source adapter per source in `pipeline/collectors/<source>.py`. Each one fetches new items since the last run and saves a snapshot. It uses a descriptive User-Agent that includes a contact email (a personal address, not a company one), and waits at least 1 request per N seconds as set in `docs/sources.md`.
 - [ ] Build adapters in this order: LED news → BC&I/ITEP postings → LPSC Document Access Center → LDEQ EDMS → parish agendas. Only sources marked `approved` in M1 are enabled.
-- [ ] Extraction uses Haiku 4.5 through the Batch API. It fills a candidate record from the schema and must quote the supporting text verbatim for each field. It never infers a capex figure, and it drops any field it can't back with a quote.
+- [ ] Extraction uses Haiku 4.5 through the Batch API. It fills a candidate record from the schema and must quote the supporting text verbatim for each field. This includes the fields added on 2026-10-04 (jobs, expected completion, contractors, site acreage, permits, ITEP, procurement links). It never infers a capex figure, and it drops any field it can't back with a quote.
 - [ ] Filter: drop candidates whose capex is below $10M or unknown. Unknown capex goes to `data/review/unknown-capex.json` so it isn't lost.
 - [ ] Workflow `collect.yml` runs on a schedule (illustrative: daily at 06:00 Central - confirm) and on manual `workflow_dispatch`. It writes candidates to `data/candidates/` on a branch.
 - [ ] Each run writes a run log to `data/runs/<date>.json` with items fetched, candidates, failures and token cost.

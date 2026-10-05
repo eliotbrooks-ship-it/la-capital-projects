@@ -1,10 +1,4 @@
 {
-  "estimate_id": null,
-  "first_seen": "2026-09-30",
-  "last_verified": "2026-09-30",
-  "location_precision": "approximate",
-  "peak_workforce": null,
-  "capacity": null,
   "id": "spacex-starbase-louisiana",
   "name": "Starbase Louisiana",
   "owner_company": "SpaceX",
@@ -12,6 +6,7 @@
   "parish": "Vermilion",
   "lat": 29.65,
   "lon": -92.43,
+  "location_precision": "approximate",
   "location_note": "Near Pecan Island, about 50 miles SSW of Lafayette. Marker hand-placed near Pecan Island; not from a source.",
   "capex_values": [
     {
@@ -31,6 +26,7 @@
   "tier": "A",
   "status": "announced",
   "status_source_id": "src-illuminator-spacex-2026-08-25",
+  "capacity": null,
   "phases": [
     {
       "name": "construction",
@@ -49,10 +45,36 @@
       "note": "First launches."
     }
   ],
+  "expected_completion": {
+    "value": "2029",
+    "basis": "first_operations",
+    "source_id": "src-illuminator-spacex-2026-08-25",
+    "note": "First rocket launches."
+  },
+  "jobs": [
+    {
+      "kind": "permanent_total",
+      "value": 10000,
+      "source_id": "src-illuminator-spacex-2026-08-25",
+      "note": "Upper figure ('as many as') given verbally by a SpaceX speaker; no state estimate yet."
+    }
+  ],
+  "contractors": [],
+  "site_acres": {
+    "value": 125000,
+    "source_id": "src-illuminator-spacex-2026-08-25",
+    "note": "About 40,000 acres of this is for launch facilities."
+  },
+  "permits": [],
+  "itep": null,
+  "procurement_links": [],
+  "estimate_id": null,
   "confidence": "MEDIUM",
-  "notes": "Status and dates come from news only; no SpaceX release or permit found yet.",
+  "first_seen": "2026-09-30",
+  "last_verified": "2026-10-04",
   "source_ids": [
     "src-illuminator-spacex-2026-08-25",
     "src-led-next-frontier-2026-09-10"
-  ]
+  ],
+  "notes": "Status and dates come from news only; no SpaceX release or permit found yet."
 }

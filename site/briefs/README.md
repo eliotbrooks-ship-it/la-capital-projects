@@ -1,1 +1,1 @@
-Weekly briefs are published here as HTML files
+Weekly briefs are published here as HTML files.

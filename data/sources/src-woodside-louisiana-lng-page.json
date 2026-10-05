@@ -1,0 +1,19 @@
+{
+  "id": "src-woodside-louisiana-lng-page",
+  "url": "https://www.woodside.com/what-we-do/growth-projects/woodside-louisiana-lng",
+  "publisher": "Woodside Energy",
+  "doc_type": "other",
+  "primary": true,
+  "published": null,
+  "retrieved_at": "2026-10-04",
+  "retrieved_by": "manual-seed",
+  "snapshot_path": null,
+  "quotes": [
+    "Bechtel is the selected engineering, procurement and construction contractor.",
+    "Reference FERC Docket Nos. CP17-117 and CP17-118 when searching for files.",
+    "Order Granting Long-Term, Multi-Contract Authorization to Export LNG by Vessel to Free Trade Agreement Nations (February 28, 2017)",
+    "Opinion and Order Granting Long-Term Authorization to Export LNG to Non-Free Trade Agreement Nations (May 2, 2019)"
+  ],
+  "quote_verified": false,
+  "terms_status": "n/a"
+}
