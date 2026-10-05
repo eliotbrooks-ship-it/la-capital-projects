@@ -1,0 +1,86 @@
+name: Collect
+# M3 collector. Manual only: start it from Actions -> Collect -> Run workflow. It never runs by itself.
+# Results go to ONE rolling pull request ("collector" branch): if the last PR is still open, this run
+# continues on that branch, so nothing is processed or paid for twice. Nothing is published until it's merged.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "List new documents only (no Claude calls, no cost)"
+        type: boolean
+        default: true
+      max_docs:
+        description: "Most documents to send to Claude this run"
+        default: "10"
+      sources:
+        description: "Comma-separated: led_news,led_bci,vppj,ascension,cameron (blank = all)"
+        default: ""
+      since:
+        description: "Backfill start date (YYYY-MM-DD)"
+        default: "2025-01-01"
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: collect
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, reviewed 2026-09-30
+        with:
+          persist-credentials: false  # the push token is only used in the last step
+      - name: Continue on the open collector branch, if there is one
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh pr view collector --json state -q .state 2>/dev/null | grep -q OPEN; then
+            git fetch -q --depth=1 "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" collector
+            git checkout -q -B collector FETCH_HEAD
+            echo "Continuing on the open 'collector' pull request."
+          fi
+      - name: Install pdftotext (poppler-utils, Ubuntu archive; approved 2026-10-04)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Run tests (no secrets)
+        run: python3 -m unittest discover -s tests -q
+      - name: Run collector
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COLLECTOR_SINCE: ${{ inputs.since || '2025-01-01' }}
+          COLLECTOR_MAX_DOCS: ${{ inputs.max_docs || '40' }}
+          COLLECTOR_SOURCES: ${{ inputs.sources }}
+          COLLECTOR_BUDGET_USD: "1.50"
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          python3 -m pipeline.collect $DRY_RUN --summary "$RUNNER_TEMP/summary.md"
+      - name: Show summary
+        if: ${{ always() }}
+        run: test -f "$RUNNER_TEMP/summary.md" && cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Save results to the collector pull request
+        # always(): if the run stopped part-way, the documents already finished are still saved.
+        if: ${{ always() && !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain data/candidates data/review data/snapshots data/runs/state.json)" ]; then
+            echo "Nothing new to save."; exit 0
+          fi
+          git config user.name "la-capital-projects collector"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          open_pr=$(gh pr view collector --json state -q .state 2>/dev/null || true)
+          git checkout -q -B collector
+          git add -A data/
+          git commit -q -m "Collector run $(date -u +%Y-%m-%d)"
+          if [ "$open_pr" = "OPEN" ]; then
+            git push -q "$remote" collector
+            gh pr comment collector --body-file "$RUNNER_TEMP/summary.md" || true
+          else
+            # No open PR: any old 'collector' branch was already merged or closed, so it is safe to replace.
+            git push -q --force "$remote" collector
+            if [ -f "$RUNNER_TEMP/summary.md" ]; then body="$RUNNER_TEMP/summary.md"; else echo "Run stopped early; see the Actions log." > "$RUNNER_TEMP/b.md"; body="$RUNNER_TEMP/b.md"; fi
+            gh pr create --base main --head collector --title "Collector results (review before merging)" --body-file "$body"
+          fi
